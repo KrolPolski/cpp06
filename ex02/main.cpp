@@ -5,24 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 13:06:57 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/22 13:16:04 by rboudwin         ###   ########.fr       */
+/*   Created: 2024/11/22 13:45:43 by rboudwin          #+#    #+#             */
+/*   Updated: 2024/11/22 14:20:43 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
-#include <iostream>
+#include <ctime>
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
+
 int main(void)
 {
-	Data *Tim = new Data("Tim", 1);
-	Data *ptr {nullptr};
-	uintptr_t num;
-	std::cout << "Pointer value: " << Tim << std::endl;
-	num = Serializer::serialize(Tim);
-	std::cout << "uintptr_t value: " << num << std::endl;
-	ptr = Serializer::deserialize(num);
-	std::cout << "Deserialized pointer value: " << ptr << std::endl;
-	//null test
-	std::cout << Serializer::serialize(nullptr);
-	delete Tim;
+	srand(static_cast<unsigned int>(time(0)));
+	std::cout << "Start with random case " << std::endl;
+	Base *ptr1 = Base::generate();
+	Base::identify(ptr1);
+	Base::identify(*ptr1);
+	std::cout << "Now let's do three explicit checks for A B and C" << std::endl;
+	A a;
+	B b;
+	C c;
+	Base::identify(&a);
+	Base::identify(a);
+	Base::identify(&b);
+	Base::identify(b);
+	Base::identify(&c);
+	Base::identify(c);
+
+	std::cout << "Null check: " << std::endl;
+	Base::identify(nullptr);
 }
