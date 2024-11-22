@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 10:39:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/21 16:19:18 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:26:22 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,53 @@ static bool isDouble(std::string str)
 	return true;
 }
 
-static void printFloat(float numf)
+static void printFloat(float numf, std::string str)
 {
-	std::cout << "float: " << numf << "f" << std::endl;
+	unsigned int precision {1};
+	unsigned int len;
+
+	len = str.length();
+	if (str[len - 1] == 'f')
+		len--;
+	for (size_t i = 0; i < len; i++)
+	{
+		if (str[i] == '.')
+		{	
+			precision = len - i - 1;
+		}
+	}
+	
+	std::cout << "float: " << std::fixed << std::setprecision(precision) << numf << "f" << std::endl;
 }
 
-static void printDouble(double numd)
+static void printDouble(double numd, std::string str)
 {
+	unsigned int precision {1};
+	unsigned int len;
+
+	len = str.length();
+	if (str[len - 1] == 'f')
+		len--;
+	for (size_t i = 0; i < len; i++)
+	{
+		if (str[i] == '.')
+		{	
+			precision = len - i - 1;
+		}
+	}
 	std::cout << "double: " << std::fixed << numd << std::endl;
 }
+
+static void printChar(int num)
+{
+	if (num < -128 || num > 127)
+		std::cout << "char: impossible" << std::endl;
+	else if (!std::isprint(num))
+		std::cout << "char: non-displayable" << std::endl;
+	else
+		std::cout << "char: " << static_cast<char>(num) << std::endl;	
+}
+
 void ScalarConverter::convert(std::string str)
 {
 	enum e_type	type;
@@ -189,10 +227,10 @@ void ScalarConverter::convert(std::string str)
 					std::cout << "char: " << c << std::endl;
 				num = static_cast<int>(c);
 				numf = static_cast<float>(c);
-				numd = static_cast<float>(c);
+				numd = static_cast<double>(c);
 				std::cout << "int:" << num << std::endl;
-				printFloat(numf);
-				printDouble(numd);
+				printFloat(numf, str);
+				printDouble(numd, str);
 				break;
 			}
 			
@@ -205,22 +243,15 @@ void ScalarConverter::convert(std::string str)
 				{
 					std::cout << "char: impossible" << std::endl;
 					std::cout << "int: impossible" << std::endl;
-					printFloat(numf);
-					printDouble(numd);
+					printFloat(numf, str);
+					printDouble(numd, str);
 					return ;
 				}
 				num = static_cast<int>(numl);
-				if (num < -128 || num > 127)
-					std::cout << "char: impossible" << std::endl;
-				else if (!std::isprint(num))
-					std::cout << "char: non-displayable" << std::endl;
-				else
-				{
-					std::cout << "char: " << static_cast<char>(num) << std::endl;
-				}
+				printChar(num);
 				std::cout << "int: " << num << std::endl;
-				printFloat(numf);
-				printDouble(numd);
+				printFloat(numf, str);
+				printDouble(numd, str);
 				break;
 			}
 			
@@ -233,21 +264,15 @@ void ScalarConverter::convert(std::string str)
 					std::cout << "char: impossible" << std::endl;
 					std::cout << "int: impossible" << std::endl;
 				}
-				else if (numl < -128 || numl > 127)
-					std::cout << "char: impossible" << std::endl;
-				else if (!std::isprint(numl))
-					std::cout << "char: non-displayable" << std::endl;
-				else
-				{
-					std::cout << "char: " << static_cast<char>(numl) << std::endl;
-				}
 				num = static_cast<int>(numf);
+				printChar(num);
 				numd = static_cast<double>(numf);
 				std::cout << "int: " << num << std::endl;
-				printFloat(numf);
-				printDouble(numd);
+				printFloat(numf, str);
+				printDouble(numd, str);
 				break;
 			}
+			
 			case DOUBLE:
 			{
 				numd = std::stod(str);
@@ -259,15 +284,10 @@ void ScalarConverter::convert(std::string str)
 				}
 				num = static_cast<int>(numd);
 				numf = static_cast<float>(numd);
-				if (num < -128 || num > 127)
-					std::cout << "char: impossible" << std::endl;
-				else if (!std::isprint(num))
-					std::cout << "char: non-displayable" << std::endl;
-				else
-					std::cout << "char: " << static_cast<char>(num) << std::endl;
+				printChar(num);
 				std::cout << "int: " << num << std::endl;
-				printFloat(numf);
-				printDouble(numd);
+				printFloat(numf, str);
+				printDouble(numd, str);
 				break;
 			}
 			default:
