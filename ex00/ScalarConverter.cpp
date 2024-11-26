@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 10:39:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/22 10:50:54 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:53:26 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ bool ScalarConverter::isInt(std::string str)
 {
 	for (size_t i = 0; i < str.length(); i++)
 	{
+		if (i == 0 && (str[0] == '-' || str[0] == '+'))
+			continue ;
 		if (!isdigit(str[i]))
 			return false;
 	}
@@ -43,6 +45,8 @@ bool ScalarConverter::isFloat(std::string str)
 	bool decimalFound {false};
 	for (size_t i = 0; i < str.length() - 1; i++)
 	{
+		if (i == 0 && (str[0] == '+' || str[0] == '-'))
+			continue;
 		if (str[i] == '.' && !decimalFound)
 		{
 			decimalFound = true;
@@ -64,6 +68,8 @@ bool ScalarConverter::isDouble(std::string str)
 	bool decimalFound {false};
 	for (size_t i = 0; i < str.length(); i++)
 	{
+		if (i == 0 && (str[0] == '+' || str[0] == '-'))
+			continue;
 		if (str[i] == '.' && !decimalFound)
 		{
 			decimalFound = true;
@@ -111,7 +117,7 @@ void ScalarConverter::printDouble(double numd, std::string str)
 			precision = len - i - 1;
 		}
 	}
-	std::cout << "double: " << std::fixed << numd << std::endl;
+	std::cout << "double: " << std::fixed << std::setprecision(precision) << numd << std::endl;
 }
 
 void ScalarConverter::printChar(int num)
