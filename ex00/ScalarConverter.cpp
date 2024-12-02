@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 10:39:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/26 12:53:26 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:00:56 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,10 +269,13 @@ void ScalarConverter::convert(std::string str)
 					std::cout << "char: impossible" << std::endl;
 					std::cout << "int: impossible" << std::endl;
 				}
-				num = static_cast<int>(numf);
-				printChar(num);
+				else
+				{
+					num = static_cast<int>(numf);
+					printChar(num);
+					std::cout << "int: " << num << std::endl;
+				}
 				numd = static_cast<double>(numf);
-				std::cout << "int: " << num << std::endl;
 				printFloat(numf, str);
 				printDouble(numd, str);
 				break;
@@ -287,10 +290,13 @@ void ScalarConverter::convert(std::string str)
 					std::cout << "char: impossible" << std::endl;
 					std::cout << "int: impossible" << std::endl;
 				}
-				num = static_cast<int>(numd);
+				else
+				{
+					num = static_cast<int>(numd);
+					printChar(num);
+					std::cout << "int: " << num << std::endl;
+				}
 				numf = static_cast<float>(numd);
-				printChar(num);
-				std::cout << "int: " << num << std::endl;
 				printFloat(numf, str);
 				printDouble(numd, str);
 				break;
