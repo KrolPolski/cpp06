@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 13:45:43 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/22 14:20:43 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:41:06 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(void)
 	Base *ptr1 = Base::generate();
 	Base::identify(ptr1);
 	Base::identify(*ptr1);
+	delete ptr1;
 	std::cout << "Now let's do three explicit checks for A B and C" << std::endl;
 	A a;
 	B b;
