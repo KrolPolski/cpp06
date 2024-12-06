@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 10:39:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/12/02 13:00:56 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:39:58 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ ScalarConverter::~ScalarConverter()
 
 bool ScalarConverter::isChar(std::string str)
 {
-	if ((isalpha(str[0]) && str.length() == 1)
-		|| (isalpha(str[1]) && str.length() == 3 && str[0] == '\'' && str[2] == '\''))
+	if ((!isdigit(str[0]) && str.length() == 1)
+		|| (str.length() == 3 && str[0] == '\'' && str[2] == '\''))
 		return true;
 	else
 		return false;
@@ -233,7 +233,7 @@ void ScalarConverter::convert(std::string str)
 				num = static_cast<int>(c);
 				numf = static_cast<float>(c);
 				numd = static_cast<double>(c);
-				std::cout << "int:" << num << std::endl;
+				std::cout << "int: " << num << std::endl;
 				printFloat(numf, str);
 				printDouble(numd, str);
 				break;
